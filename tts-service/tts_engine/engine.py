@@ -1,6 +1,22 @@
+import sys
+import sys
+import os
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+GPT_PARENT = os.path.join(BASE_DIR, "models", "GPT-SoVITS")
+GPT_ROOT = os.path.join(GPT_PARENT, "GPT_SoVITS")
+TTS_PACK = os.path.join(GPT_ROOT, "TTS_infer_pack")
+ERES2NET_DIR = os.path.join(GPT_ROOT, "eres2net")
+
+sys.path.insert(0, GPT_PARENT)
+sys.path.insert(0, GPT_ROOT)
+sys.path.insert(0, TTS_PACK)
+sys.path.insert(0, ERES2NET_DIR)
+os.chdir(GPT_PARENT)
+
+from TTS import TTS
 from typing import Dict, Any, Tuple, List
 import numpy as np
-from TTS import TTS
 
 class TTSEngine:
     def __init__(self, device: str = "cuda", is_half: bool = True):
