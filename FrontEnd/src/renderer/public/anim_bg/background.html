@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Background</title>
+    <style type="text/css">
+        html, body {
+            background-color: #85b9dd;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        * { position: relative; }
+
+        .frame {
+            width: 100%;
+            height: auto;
+            margin: 15% auto 0;
+            position: absolute;
+        }
+
+        svg {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* === 纸飞机部分 === */
+        .plane-container {
+            width: 200px;
+            margin: 0px auto;
+            z-index: 3;
+            -webkit-animation: paper-plane-scoping 2s alternate infinite;
+            -moz-animation: paper-plane-scoping 2s alternate infinite;
+            animation: paper-plane-scoping 2s alternate infinite;
+            -webkit-animation-timing-function: linear;
+            -moz-animation-timing-function: linear;
+            animation-timing-function: linear;
+        }
+
+        .plane {
+            width: 100%;
+            height: 60px;
+            -webkit-animation-timing-function: ease-in-out;
+            -moz-animation-timing-function: ease-in-out;
+            animation-timing-function: ease-in-out;
+            -webkit-animation: paper-plane-soaring 4s forwards infinite;
+            -moz-animation: paper-plane-soaring 4s forwards infinite;
+            animation: paper-plane-soaring 4s forwards infinite;
+        }
+
+        @keyframes paper-plane-scoping {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(100px); }
+        }
+        @-webkit-keyframes paper-plane-scoping {
+            0% { -webkit-transform: translateY(0px); }
+            100% { -webkit-transform: translateY(100px); }
+        }
+
+        @keyframes paper-plane-soaring {
+            0% { transform: rotate(0deg); }
+            40% { transform: rotate(15deg); }
+            50% { transform: rotate(15deg); }
+            60% { transform: rotate(-10deg); }
+            70% { transform: rotate(-10deg); }
+            100% { transform: rotate(0deg); }
+        }
+        @-webkit-keyframes paper-plane-soaring {
+            0% { -webkit-transform: rotate(0deg); }
+            40% { -webkit-transform: rotate(15deg); }
+            50% { -webkit-transform: rotate(15deg); }
+            60% { -webkit-transform: rotate(-10deg); }
+            70% { -webkit-transform: rotate(-10deg); }
+            100% { -webkit-transform: rotate(0deg); }
+        }
+
+        /* === 云朵部分 === */
+        .clouds {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            overflow: hidden;
+            transform: translateZ(0);
+        }
+
+        .cloud {
+            position: absolute;
+            top: 20%;
+            width: 300px;
+            right: 0;
+            opacity: 1;
+            
+            -webkit-animation-name: cloud-movement;
+            -moz-animation-name: cloud-movement;
+            animation-name: cloud-movement;
+            
+            -webkit-animation-timing-function: linear;
+            -moz-animation-timing-function: linear;
+            animation-timing-function: linear;
+            
+            -webkit-animation-direction: forwards;
+            -moz-animation-direction: forwards;
+            animation-direction: forwards;
+            
+            -webkit-animation-iteration-count: infinite;
+            -moz-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+            
+            -webkit-animation-duration: 8s;
+            -moz-animation-duration: 8s;
+            animation-duration: 8s;
+        }
+
+        .cloud.front { z-index: 9; }
+        .cloud.distant { z-index: 1; }
+        .cloud.background { z-index: 1; }
+        .cloud.smaller { margin-right: 400px; width: 100px; margin-top: 50px; }
+        .cloud.small { margin-right: 200px; width: 150px; }
+        .cloud.big { width: 500px; margin-top: 50px; margin-right: 150px; }
+        .cloud.massive { width: 600px; margin-top: 20px; margin-right: 0px; }
+
+        .slow { animation-duration: 9.2s; }
+        .slower { animation-duration: 11.2s; }
+        .slowest { animation-duration: 13.5s; }
+        .super-slow { animation-duration: 20.5s; }
+
+        /* 
+           调整了 opacity 的时间点，让云朵一直保持可见直到最后
+        */
+        @keyframes cloud-movement {
+            0% {
+                opacity: 0.1;
+                transform: translateX(300px);
+            }
+            10% {
+                opacity: 0.7; /* 快速淡入 */
+            }
+            85% {
+                opacity: 0.7; /* 保持可见直到 85% 的路程 */
+            }
+            100% {
+                opacity: 0;   /* 最后才消失 */
+                transform: translateX(-1200px); /* 稍微增加移动距离，防止宽屏幕穿帮 */
+            }
+        }
+        @-webkit-keyframes cloud-movement {
+            0% {
+                opacity: 0.1;
+                -webkit-transform: translateX(300px);
+            }
+            10% {
+                opacity: 0.7;
+            }
+            85% {
+                opacity: 0.7;
+            }
+            100% {
+                opacity: 0;
+                -webkit-transform: translateX(-1200px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="frame">
+        <div class="plane-container">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                width="1131.53px" height="379.304px" viewBox="0 0 1131.53 379.304" enable-background="new 0 0 1131.53 379.304"
+                xml:space="preserve" class="plane">
+                <polygon fill="#D8D8D8" points="72.008,0 274.113,140.173 274.113,301.804 390.796,221.102 601.682,367.302 1131.53,0.223  "/>
+                <polygon fill="#C4C4C3" points="1131.53,0.223 274.113,140.173 274.113,301.804 390.796,221.102   "/>
+            </svg>
+        </div>
+    </div>
+
+    <div class="clouds">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="762px"
+            height="331px" viewBox="0 0 762 331" enable-background="new 0 0 762 331" xml:space="preserve" class="cloud big front slowest">
+            <path fill="#FFFFFF" d="M715.394,228h-16.595c0.79-5.219,1.201-10.562,1.201-16c0-58.542-47.458-106-106-106
+            c-8.198,0-16.178,0.932-23.841,2.693C548.279,45.434,488.199,0,417.5,0c-84.827,0-154.374,65.401-160.98,148.529
+            C245.15,143.684,232.639,141,219.5,141c-49.667,0-90.381,38.315-94.204,87H46.607C20.866,228,0,251.058,0,279.5
+            S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715.394,228z"/>
+        </svg>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="762px"
+            height="331px" viewBox="0 0 762 331" enable-background="new 0 0 762 331" xml:space="preserve" class="cloud distant smaller">
+            <path fill="#FFFFFF" d="M715.394,228h-16.595c0.79-5.219,1.201-10.562,1.201-16c0-58.542-47.458-106-106-106
+            c-8.198,0-16.178,0.932-23.841,2.693C548.279,45.434,488.199,0,417.5,0c-84.827,0-154.374,65.401-160.98,148.529
+            C245.15,143.684,232.639,141,219.5,141c-49.667,0-90.381,38.315-94.204,87H46.607C20.866,228,0,251.058,0,279.5
+            S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715.394,228z"/>
+        </svg>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="762px"
+            height="331px" viewBox="0 0 762 331" enable-background="new 0 0 762 331" xml:space="preserve" class="cloud small slow">
+            <path fill="#FFFFFF" d="M715.394,228h-16.595c0.79-5.219,1.201-10.562,1.201-16c0-58.542-47.458-106-106-106
+            c-8.198,0-16.178,0.932-23.841,2.693C548.279,45.434,488.199,0,417.5,0c-84.827,0-154.374,65.401-160.98,148.529
+            C245.15,143.684,232.639,141,219.5,141c-49.667,0-90.381,38.315-94.204,87H46.607C20.866,228,0,251.058,0,279.5
+            S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715.394,228z"/>
+        </svg>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="762px"
+            height="331px" viewBox="0 0 762 331" enable-background="new 0 0 762 331" xml:space="preserve" class="cloud distant super-slow massive">
+            <path fill="#FFFFFF" d="M715.394,228h-16.595c0.79-5.219,1.201-10.562,1.201-16c0-58.542-47.458-106-106-106
+            c-8.198,0-16.178,0.932-23.841,2.693C548.279,45.434,488.199,0,417.5,0c-84.827,0-154.374,65.401-160.98,148.529
+            C245.15,143.684,232.639,141,219.5,141c-49.667,0-90.381,38.315-94.204,87H46.607C20.866,228,0,251.058,0,279.5
+            S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715.394,228z"/>
+        </svg>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="762px"
+            height="331px" viewBox="0 0 762 331" enable-background="new 0 0 762 331" xml:space="preserve" class="cloud slower">
+            <path fill="#FFFFFF" d="M715.394,228h-16.595c0.79-5.219,1.201-10.562,1.201-16c0-58.542-47.458-106-106-106
+            c-8.198,0-16.178,0.932-23.841,2.693C548.279,45.434,488.199,0,417.5,0c-84.827,0-154.374,65.401-160.98,148.529
+            C245.15,143.684,232.639,141,219.5,141c-49.667,0-90.381,38.315-94.204,87H46.607C20.866,228,0,251.058,0,279.5
+            S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715.394,228z"/>
+        </svg>
+    </div>
+</body>
+</html>
